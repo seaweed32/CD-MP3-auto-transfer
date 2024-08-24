@@ -1,0 +1,33 @@
+#file_input_button {
+    position: relative;
+    display: block;
+    height: 200px;
+    width: 500px;
+    align-items: center;
+    top: 30%;
+    left: 35%;
+    background-color: olivedrab;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+}
+
+#choose {
+    display: block;
+    position: relative;
+    top: 10px;
+    font-size: 50px;
+}
+
+#drop {
+    display: block;
+    position: relative;
+    top: -25px;
+    margin: auto;
+    height: 100px;
+    width: 450px;
+    font-size: 25px;
+    border-radius: 4px;
+    border-style: dashed;
+    border-color: darkgreen;
+}
