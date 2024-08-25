@@ -3,17 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="table_styles" type="text/css" href="stylesheet.css" />
+    <link rel="stylesheet" type="text/css" href="table_styles.css" />
     <title>Spotify Processor</title>
 </head>
 <body>
+    <div id="stream_div">
     <table id="most_streams">
         <tr>
+            <th>#</th>
             <th>Title</th>
             <th>Artist</th>
             <th>Streams</th>
         </tr>
     </table>
-    <script type="module" src="assemble.js"></script>
+    </div>
+    <div id="data_dipsplay_blocks">
+        <div class="data_disp" id="minutes">
+            <div class="disp_head">Time Spent</div>
+            <div class="disp_body">51hrs 36min</div>
+        </div>
+        <div class="data_disp" id="minutes">
+            <div class="disp_head">Time Spent</div>
+            <div class="disp_body">51hrs 36min</div>
+        </div>
+        <div class="data_disp" id="minutes">
+            <div class="disp_head">Time Spent</div>
+            <div class="disp_body">51hrs 36min</div>
+        </div>
+        <div class="data_disp" id="minutes">
+            <div class="disp_head">Time Spent</div>
+            <div class="disp_body">51hrs 36min</div>
+        </div>
+    </div>
+    <script src="assemble.js"></script>
 </body>
 </html>

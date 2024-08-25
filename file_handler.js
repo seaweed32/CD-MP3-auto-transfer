@@ -6,7 +6,7 @@ function fileHandler(file){
                 let fileR = new FileReader();
                 //send the read file to be processed when the read is completed; onload means it has been completed
                 fileR.onload = () => {
-                    //processText(fileR.result);
+                    document.getElementById('choose').innerText = 'Processing...';
                     processJson(fileR.result);
                 }
                 let curFile = fileInput.files[i];
@@ -19,8 +19,8 @@ function fileHandler(file){
             let fileR = new FileReader();
             //send the read file to be processed when the read is completed; onload means it has been completed
             fileR.onload = () => {
-                //processText(fileR.result);
-                console.log(fileR.result);
+                document.getElementById('choose').innerText = 'Processing...';
+                processJson(fileR.result);
             }
             let curFile = fileInput.files[i];
             fileR.readAsText(curFile);

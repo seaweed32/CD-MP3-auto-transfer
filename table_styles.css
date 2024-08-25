@@ -1,11 +1,11 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
+    width: 75%;
   }
   
   td, th {
-    border: 1px solid #dddddd;
+    border: 2px solid #dddddd;
     text-align: left;
     padding: 8px;
   }
@@ -13,3 +13,42 @@ table {
   tr:nth-child(even) {
     background-color: #dddddd;
   }
+
+  #stream_div {
+    position: fixed;
+  }
+
+  .data_disp {
+    width: 35%;
+    height: 30%;
+    border: 1px solid gray;
+    position: relative;
+    display: inline-block;
+    margin: 5px;
+}
+
+.disp_head {
+    text-align: center;
+    background-color: rgb(113, 163, 189);
+    height: 20px;
+    line-height: 20px;
+    font-weight: bold;
+}
+
+.disp_body {
+    text-align: center;
+    line-height: 40px;
+    font-size: 25px;
+}
+
+#data_dipsplay_blocks {
+    right: -8%;
+    width: 40%;
+    height: 30%;
+    position: fixed;
+    display: block;
+}
+
+
+
+ 
