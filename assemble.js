@@ -1,5 +1,12 @@
 let songData = JSON.parse(sessionStorage.getItem('song-data'));
-
+let searchBox = document.getElementById('search_box');
+document.addEventListener('click',function (event){
+    if(event.target.className != 'result' && event.target.id != 'search_box'){
+        document.getElementById('search_results_box').style.display = 'none';
+    }
+});
+let showSearch = () => document.getElementById('search_results_box').style.display = 'block';
+searchBox.addEventListener('focus',showSearch);
 /*function assembleData(){
     let dataChunks = sessionStorage.getItem('dataChunks');
     let uncompressedData = [];
@@ -79,7 +86,29 @@ function mostInDay(data){
 
 document.getElementById('search_box').addEventListener('input', search);
 function search(){
-    let searchText = document.getElementById('search_box').value;
+    let searchText = document.getElementById('search_box').value.toLowerCase();
+    if(searchText != ''){
+        let results = [];
+        let box = document.getElementById('search_results_box');
+        box.innerHTML = '';
+        for(let song of songData){
+            if(song.title.toLowerCase().includes(searchText) || song.artist.toLowerCase().includes(searchText)){
+                results.push(song);
+            }
+        }
+        for(let song of results){
+            let newRow = document.createElement('div');
+            newRow.setAttribute('class','result');
+            newRow.innerText = song.title+' - '+song.artist;
+            newRow.addEventListener('click',function (){songDisplay(song)});
+            box.style.display = 'block';
+            box.appendChild(newRow);
+        }
+    } else document.getElementById('search_results_box').style.display = 'none';
+}
+
+function songDisplay(song){
+    console.log(song);
 }
 
 document.getElementById('unique').innerText = songData.length+ ' songs';

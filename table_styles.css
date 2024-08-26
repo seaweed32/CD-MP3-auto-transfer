@@ -9,10 +9,6 @@ table {
     text-align: left;
     padding: 8px;
   }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
 
   #stream_div {
     position: fixed;
@@ -89,4 +85,33 @@ table {
 .button:hover {
     border-color: rgb(150,150,150);
     cursor: pointer;
+}
+
+#search_results_box {
+    font-family: arial, sans-serif;
+    width: 32.25%;
+    left: 66.5%;
+    z-index: 1;
+    top: 5.6%;
+    height: 30%;
+    position: fixed;
+    display: none;
+    overflow-y: scroll;
+    border-bottom: 2px solid #dddddd;
+}
+
+.result {
+    border: 2px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    background-color: #ffffff;
+}
+
+.result:hover {
+    background-color: #eeeeee;
+    cursor: pointer;
+}
+
+.result:active {
+    background-color: #e7e7e7;
 }
