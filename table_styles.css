@@ -18,11 +18,11 @@ table {
   }
 
   .data_disp {
-    width: 35%;
-    height: 30%;
+    width: 14%;
+    height: 10%;
     border: 1px solid gray;
-    position: relative;
-    display: inline-block;
+    position: fixed;
+    display: block;
     margin: 5px;
 }
 
@@ -41,7 +41,7 @@ table {
 }
 
 #data_dipsplay_blocks {
-    right: -8%;
+    right: -7.5%;
     top: 8%;
     width: 40%;
     height: 30%;
@@ -50,7 +50,12 @@ table {
 }
 
 #more_than_four {
-    margin-left: 20%;
+    margin-top: 6.5%;
+    margin-left: 8%;
+}
+
+#unique_songs {
+    margin-left: 16%;
 }
 
 #search_box {
