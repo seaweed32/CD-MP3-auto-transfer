@@ -61,7 +61,7 @@ function getTime(data){
 
 function moreFive(data){
     let numOfSongs = 0;
-    for(let song of data) if(song.streams>=5) numOfSongs++;
+    for(let song of data) if(song.streams>=10) numOfSongs++;
     document.getElementById('more_streams').innerText = numOfSongs+' songs';
 }
 /*
@@ -104,7 +104,9 @@ function search(){
             box.style.display = 'block';
             box.appendChild(newRow);
         }
-    } else document.getElementById('search_results_box').style.display = 'none';
+    } else {
+        document.getElementById('search_results_box').style.display = 'none';
+    }
 }
 
 function songDisplay(song){
