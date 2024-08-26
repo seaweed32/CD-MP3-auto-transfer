@@ -10,6 +10,21 @@ function processJson(url){
     });
 }
 
+/*function splitData(data){
+    sessionStorage.setItem('dataChunks',Math.ceil(data.length/2500));
+    let curChunk = 0;
+    let chunk = [];
+    for(let song of data){
+        if(!data.indexOf(song)+1 % 2500 === 0){
+            chunk.push(song);
+        } else {
+            sessionStorage.setItem(`uncompressed-song-data-${curChunk}`,JSON.stringify(chunk));
+            chunk = [];
+            curChunk++;
+        }
+    }
+}*/
+
 function compressData(data){
     let compressedData = {};
     for(let song of data){

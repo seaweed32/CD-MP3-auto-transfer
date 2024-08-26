@@ -1,7 +1,7 @@
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 75%;
+    width: 100%;
   }
   
   td, th {
@@ -16,6 +16,9 @@ table {
 
   #stream_div {
     position: fixed;
+    overflow-y: scroll;
+    height: 100%;
+    width: 65%;
   }
 
   .data_disp {
@@ -49,6 +52,9 @@ table {
     display: block;
 }
 
+#more_than_four {
+    margin-left: 20%;
+}
 
 
  
