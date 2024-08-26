@@ -77,6 +77,11 @@ function mostInDay(data){
     document.getElementById('most').innerText = `${mostDay[Object.keys(mostDay)[0]]} - ${Object.keys(mostDay)[0]}`;
 }*/
 
+document.getElementById('search_box').addEventListener('input', search);
+function search(){
+    let searchText = document.getElementById('search_box').value;
+}
+
 document.getElementById('unique').innerText = songData.length+ ' songs';
 
 //mostInDay(uncompressedData);

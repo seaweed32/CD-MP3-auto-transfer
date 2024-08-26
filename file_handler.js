@@ -15,16 +15,13 @@ function fileHandler(file){
         })
         fileInput.click();
     } else {
-        for(let i=0;i<fileInput.files.length;i++){
-            let fileR = new FileReader();
-            //send the read file to be processed when the read is completed; onload means it has been completed
-            fileR.onload = () => {
-                document.getElementById('choose').innerText = 'Processing...';
-                processJson(fileR.result);
-            }
-            let curFile = fileInput.files[i];
-            fileR.readAsText(curFile);
+        let fileR = new FileReader();
+        //send the read file to be processed when the read is completed; onload means it has been completed
+        fileR.onload = () => {
+            document.getElementById('choose').innerText = 'Processing...';
+            processJson(fileR.result);
         }
+        fileR.readAsDataURL(file);
     }
 }
 

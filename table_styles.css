@@ -46,6 +46,7 @@ table {
 
 #data_dipsplay_blocks {
     right: -8%;
+    top: 8%;
     width: 40%;
     height: 30%;
     position: fixed;
@@ -56,5 +57,36 @@ table {
     margin-left: 20%;
 }
 
+#search_box {
+    left: 66.5%;
+    width: 32%;
+    height: 4%;
+    padding: 0 0 2px 2px;
+    line-height: 28px;
+    text-align: left;
+    cursor: text;
+    resize: none;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 20px;
+    font-family: arial, sans-serif;
+}
 
- 
+#search_box:focus {
+    outline: none;
+}
+
+
+.button {
+    display: block;
+    position: fixed;
+    text-align: center;
+    background-color: lightgray;
+    border: 1px solid gray;
+    border-radius: 2px;
+}
+
+.button:hover {
+    border-color: rgb(150,150,150);
+    cursor: pointer;
+}
