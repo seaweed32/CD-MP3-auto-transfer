@@ -1,4 +1,33 @@
-let songData = JSON.parse(sessionStorage.getItem('song-data'));
+let uncompSongData;
+let songData;
+let store;
+const request = indexedDB.open("songHistoryDatabase", 2);
+request.onerror = function (event) {
+    console.error("An error occurred with IndexedDB");
+    console.error(event);
+};
+
+request.onsuccess = function () {
+    console.log("Database opened successfully");
+    const db = request.result;
+    const transaction = db.transaction("songDataStorage", "readwrite");  
+    store = transaction.objectStore("songDataStorage");
+    const getUncomp = store.get(1);
+    getUncomp.onsuccess = () => uncompSongData = getUncomp.result.uncompData;
+    const getComp = store.get(2);
+    getComp.onsuccess = () => songData = getComp.result.uncompData;
+    transaction.oncomplete = function () {
+        db.close();
+        var req = indexedDB.deleteDatabase(db);
+        req.onsuccess = function () {
+            console.log("Deleted database successfully");
+        };
+        req.onerror = function () {
+            console.log("Couldn't delete database");
+        };
+    };
+};
+
 let searchBox = document.getElementById('search_box');
 document.addEventListener('click',function (event){
     if(event.target.className != 'result' && event.target.id != 'search_box'){

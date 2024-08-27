@@ -2,10 +2,32 @@ if(window.location.href.replace(/^.*[\\/]/, '') == 'index.html'){
     var fileInput = document.getElementById('file_input');
     document.getElementById('file_input_button').addEventListener('click', () => fileHandler());
 }
+let store;
+const request = indexedDB.open("songHistoryDatabase", 2);
+request.onerror = function (event) {
+    console.error("An error occurred with IndexedDB");
+    console.error(event);
+};
+
+request.onupgradeneeded = function () {
+    const db = request.result;
+    db.createObjectStore("songDataStorage", { keyPath: "dataSet" });    
+};
+
+request.onsuccess = function () {
+    console.log("Database opened successfully");
+    const db = request.result;
+    const transaction = db.transaction("songDataStorage", "readwrite");  
+    store = transaction.objectStore("songDataStorage");  
+    transaction.oncomplete = function () {
+        db.close();
+    };
+};
 
 function processJson(url){
     import(url,{with:{type: 'json'}}).then((mod) => {
         let data = mod.default;
+        store.put({ 'dataSet': 1, 'uncompData': data});
         compressData(data);
     });
 }
@@ -46,7 +68,7 @@ function createSortedArray(data){
     array = Object.values(data).sort((a,b) => {
         return b.streams - a.streams;
     });
-    sessionStorage.setItem('song-data',JSON.stringify(array));
+    store.put({ 'dataSet': 2, 'compData': array});
     window.location = 'display.html';
 }
 
