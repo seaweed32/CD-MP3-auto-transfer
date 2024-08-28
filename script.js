@@ -3,32 +3,35 @@ if(window.location.href.replace(/^.*[\\/]/, '') == 'index.html'){
     document.getElementById('file_input_button').addEventListener('click', () => fileHandler());
 }
 let store;
-const request = indexedDB.open("songHistoryDatabase", 2);
-request.onerror = function (event) {
-    console.error("An error occurred with IndexedDB");
-    console.error(event);
-};
-
-request.onupgradeneeded = function () {
-    const db = request.result;
-    db.createObjectStore("songDataStorage", { keyPath: "dataSet" });    
-};
-
-request.onsuccess = function () {
-    console.log("Database opened successfully");
-    const db = request.result;
-    const transaction = db.transaction("songDataStorage", "readwrite");  
-    store = transaction.objectStore("songDataStorage");  
-    transaction.oncomplete = function () {
-        db.close();
-    };
-};
-
+let db;
+let transaction;
 function processJson(url){
     import(url,{with:{type: 'json'}}).then((mod) => {
         let data = mod.default;
-        store.put({ 'dataSet': 1, 'uncompData': data});
-        compressData(data);
+        const request = indexedDB.open("songHistoryDatabase", 2);
+        request.onerror = function (event) {
+            console.error("An error occurred with IndexedDB");
+            console.error(event);
+        };
+
+        request.onupgradeneeded = function () {
+            const db = request.result;
+            db.createObjectStore("songDataStorage", { keyPath: "dataSet" });    
+        };
+
+        request.onsuccess = function () {
+            console.log("Database opened successfully");
+            db = request.result;
+            transaction = db.transaction("songDataStorage", "readwrite");  
+            store = transaction.objectStore("songDataStorage"); 
+            const putRequest = store.put({ 'dataSet': 1, 'uncompData': data});
+            putRequest.onsuccess = function () {
+                transaction.oncomplete = function () {
+                    db.close();
+                    compressData(data);
+                };
+            };
+        };
     });
 }
 
@@ -68,8 +71,30 @@ function createSortedArray(data){
     array = Object.values(data).sort((a,b) => {
         return b.streams - a.streams;
     });
-    store.put({ 'dataSet': 2, 'compData': array});
-    window.location = 'display.html';
+    const request = indexedDB.open("songHistoryDatabase", 2);
+    request.onerror = function (event) {
+        console.error("An error occurred with IndexedDB");
+        console.error(event);
+    };
+    request.onsuccess = function () {
+        console.log("Database opened successfully");
+        db = request.result;
+        transaction = db.transaction("songDataStorage", "readwrite");  
+        store = transaction.objectStore("songDataStorage"); 
+        const putRequest = store.put({ 'dataSet': 2, 'compData': array});
+        putRequest.onsuccess = function () {
+            console.log("Data successfully added to the database");
+            transaction.oncomplete = function () {
+                db.close();
+                window.location = 'display.html';
+            };
+        };
+
+        putRequest.onerror = function (event) {
+            console.error("Error putting data in the database", event);
+        };
+        
+    };
 }
 
 

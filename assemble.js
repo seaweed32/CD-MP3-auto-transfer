@@ -13,9 +13,9 @@ request.onsuccess = function () {
     const transaction = db.transaction("songDataStorage", "readwrite");  
     store = transaction.objectStore("songDataStorage");
     const getUncomp = store.get(1);
-    getUncomp.onsuccess = () => uncompSongData = getUncomp.result.uncompData;
-    const getComp = store.get(2);
-    getComp.onsuccess = () => songData = getComp.result.uncompData;
+    getUncomp.onsuccess = function(){whenUncomp(getUncomp.result.uncompData)};
+    const getComp = store.getAll(2);
+    getComp.onsuccess = function(){console.log(getComp.result); whenComp(getComp.result.compData)};
     transaction.oncomplete = function () {
         db.close();
         var req = indexedDB.deleteDatabase(db);
@@ -27,6 +27,26 @@ request.onsuccess = function () {
         };
     };
 };
+
+function whenUncomp(uncompData){
+    uncompSongData = uncompData;
+    console.log(uncompData);
+}
+
+function whenComp(compData){
+    songData = compData;
+    console.log(compData);
+
+    document.getElementById('unique').innerText = songData.length+ ' songs';
+
+    //mostInDay(uncompressedData);
+
+    moreFive(songData);
+
+    getTime(songData);
+
+    assembleTable(songData);
+}
 
 let searchBox = document.getElementById('search_box');
 document.addEventListener('click',function (event){
@@ -141,13 +161,3 @@ function search(){
 function songDisplay(song){
     console.log(song);
 }
-
-document.getElementById('unique').innerText = songData.length+ ' songs';
-
-//mostInDay(uncompressedData);
-
-moreFive(songData);
-
-getTime(songData);
-
-assembleTable(songData);
