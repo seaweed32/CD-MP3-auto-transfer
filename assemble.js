@@ -1,5 +1,59 @@
-let songData = JSON.parse(sessionStorage.getItem('song-data'));
+<<<<<<< Updated upstream
+let uncompSongData;
+let songData;
+let store;
+const request = indexedDB.open("songHistoryDatabase", 2);
+request.onerror = function (event) {
+    console.error("An error occurred with IndexedDB");
+    console.error(event);
+};
+
+request.onsuccess = function () {
+    console.log("Database opened successfully");
+    const db = request.result;
+    const transaction = db.transaction("songDataStorage", "readwrite");  
+    store = transaction.objectStore("songDataStorage");
+    const getUncomp = store.get(1);
+    getUncomp.onsuccess = function(){whenUncomp(getUncomp.result.uncompData)};
+    const getComp = store.getAll(2);
+    getComp.onsuccess = function(){console.log(getComp.result); whenComp(getComp.result.compData)};
+    transaction.oncomplete = function () {
+        db.close();
+        var req = indexedDB.deleteDatabase(db);
+        req.onsuccess = function () {
+            console.log("Deleted database successfully");
+        };
+        req.onerror = function () {
+            console.log("Couldn't delete database");
+        };
+    };
+};
+
+function whenUncomp(uncompData){
+    uncompSongData = uncompData;
+    console.log(uncompData);
+}
+
+function whenComp(compData){
+    songData = compData;
+    console.log(compData);
+
+    document.getElementById('unique').innerText = songData.length+ ' songs';
+
+    //mostInDay(uncompressedData);
+
+    moreFive(songData);
+
+    getTime(songData);
+
+    assembleTable(songData);
+}
+
+=======
+>>>>>>> Stashed changes
 let searchBox = document.getElementById('search_box');
+let uncompData;
+let compData;
 document.addEventListener('click',function (event){
     if(event.target.className != 'result' && event.target.id != 'search_box'){
         document.getElementById('search_results_box').style.display = 'none';
@@ -43,7 +97,7 @@ function assembleTable(data){
 
 function getTime(data){
     let timeMs = 0;
-    for(let song of songData){
+    for(let song of compData){
         timeMs += song.ms_played*song.streams;
     }
     function msToTime(s) {
@@ -91,7 +145,7 @@ function search(){
         let results = [];
         let box = document.getElementById('search_results_box');
         box.innerHTML = '';
-        for(let song of songData){
+        for(let song of compData){
             if(song.title.toLowerCase().includes(searchText) || song.artist.toLowerCase().includes(searchText)){
                 results.push(song);
             }
@@ -111,14 +165,55 @@ function search(){
 
 function songDisplay(song){
     console.log(song);
+<<<<<<< Updated upstream
+=======
 }
 
-document.getElementById('unique').innerText = songData.length+ ' songs';
+function retrieveData(){
+    const request = indexedDB.open("songDataDB", 1);
+    //error
+    request.onerror = function (event) {
+      console.error("An error occurred with IndexedDB");
+      console.error(event);
+    };
+    request.onsuccess = function () {
+        console.log("Database opened successfully");
+        const db = request.result;
+        const transaction = db.transaction("songDataStorage", "readwrite");    
+        const store = transaction.objectStore("songDataStorage");
+        //get data
+        const uncompDataRequest = store.get(1);
+        const compDataRequest = store.get(2);
+        uncompDataRequest.onsuccess = () => uncompData = uncompDataRequest.result.uncompData;
+        compDataRequest.onsuccess = () => compData = compDataRequest.result.compData;
+      
+        transaction.oncomplete = function () {
+            db.close();
+            var req = indexedDB.deleteDatabase(db);
+            req.onsuccess = function () {
+                console.log("Deleted database successfully");
+            };
+            req.onerror = function () {
+                console.log("Couldn't delete database");
+            };
+            req.onblocked = function () {
+                console.log("Couldn't delete database due to the operation being blocked");
+            };
+            afterRetrieval();
+        };
+    };
+}
+retrieveData();
 
-//mostInDay(uncompressedData);
+function afterRetrieval(){
+    document.getElementById('unique').innerText = compData.length+ ' songs';
 
-moreFive(songData);
+    //mostInDay(uncompressedData);
 
-getTime(songData);
+    moreFive(compData);
 
-assembleTable(songData);
+    getTime(compData);
+
+    assembleTable(compData);
+>>>>>>> Stashed changes
+}
