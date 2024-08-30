@@ -1,3 +1,4 @@
+var fileInput = document.getElementById('file_input');
 function fileHandler(file){
     if(!file){ //only do this if a file has not been input to the function. This is because when a file is input, it is because it has been dropped in instead of being chosen, and it can just go to be read
         //when a file is input, read it as text

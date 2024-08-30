@@ -1,7 +1,7 @@
 if(window.location.href.replace(/^.*[\\/]/, '') == 'index.html'){
-    var fileInput = document.getElementById('file_input');
     document.getElementById('file_input_button').addEventListener('click', () => fileHandler());
 }
+<<<<<<< Updated upstream
 let store;
 let db;
 let transaction;
@@ -32,6 +32,42 @@ function processJson(url){
                 };
             };
         };
+=======
+
+function saveToDB(uncompressedData,compressedData){
+    const request = indexedDB.open("songDataDB", 1);
+    //error
+    request.onerror = function (event) {
+      console.error("An error occurred with IndexedDB");
+      console.error(event);
+    };
+    //on upgrade needed
+    request.onupgradeneeded = function () {
+      const db = request.result;
+      db.createObjectStore("songDataStorage", { keyPath: "dataSet" });    
+    };
+    //success
+    request.onsuccess = function () {
+      console.log("Database opened successfully");
+      const db = request.result;
+      const transaction = db.transaction("songDataStorage", "readwrite");    
+      const store = transaction.objectStore("songDataStorage");
+      //save data
+      store.put({ 'dataSet': 1, 'uncompData': uncompressedData});
+      store.put({ 'dataSet': 2, 'compData': compressedData});
+    
+      transaction.oncomplete = function () {
+          db.close();
+          window.location = 'display.html';
+      };
+    };
+}
+
+function processJson(url){
+    import(url,{with:{type: 'json'}}).then((mod) => {
+        let data = mod.default;
+        saveToDB(data,compressData(data));
+>>>>>>> Stashed changes
     });
 }
 
@@ -64,13 +100,14 @@ function compressData(data){
             }
         }
     }
-    createSortedArray(compressedData);
+    return createSortedArray(compressedData);
 }
 
 function createSortedArray(data){
     array = Object.values(data).sort((a,b) => {
         return b.streams - a.streams;
     });
+<<<<<<< Updated upstream
     const request = indexedDB.open("songHistoryDatabase", 2);
     request.onerror = function (event) {
         console.error("An error occurred with IndexedDB");
@@ -95,6 +132,9 @@ function createSortedArray(data){
         };
         
     };
+=======
+    return array;
+>>>>>>> Stashed changes
 }
 
 
