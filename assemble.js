@@ -1,56 +1,3 @@
-<<<<<<< Updated upstream
-let uncompSongData;
-let songData;
-let store;
-const request = indexedDB.open("songHistoryDatabase", 2);
-request.onerror = function (event) {
-    console.error("An error occurred with IndexedDB");
-    console.error(event);
-};
-
-request.onsuccess = function () {
-    console.log("Database opened successfully");
-    const db = request.result;
-    const transaction = db.transaction("songDataStorage", "readwrite");  
-    store = transaction.objectStore("songDataStorage");
-    const getUncomp = store.get(1);
-    getUncomp.onsuccess = function(){whenUncomp(getUncomp.result.uncompData)};
-    const getComp = store.getAll(2);
-    getComp.onsuccess = function(){console.log(getComp.result); whenComp(getComp.result.compData)};
-    transaction.oncomplete = function () {
-        db.close();
-        var req = indexedDB.deleteDatabase(db);
-        req.onsuccess = function () {
-            console.log("Deleted database successfully");
-        };
-        req.onerror = function () {
-            console.log("Couldn't delete database");
-        };
-    };
-};
-
-function whenUncomp(uncompData){
-    uncompSongData = uncompData;
-    console.log(uncompData);
-}
-
-function whenComp(compData){
-    songData = compData;
-    console.log(compData);
-
-    document.getElementById('unique').innerText = songData.length+ ' songs';
-
-    //mostInDay(uncompressedData);
-
-    moreFive(songData);
-
-    getTime(songData);
-
-    assembleTable(songData);
-}
-
-=======
->>>>>>> Stashed changes
 let searchBox = document.getElementById('search_box');
 let uncompData;
 let compData;
@@ -165,8 +112,6 @@ function search(){
 
 function songDisplay(song){
     console.log(song);
-<<<<<<< Updated upstream
-=======
 }
 
 function retrieveData(){
@@ -215,5 +160,4 @@ function afterRetrieval(){
     getTime(compData);
 
     assembleTable(compData);
->>>>>>> Stashed changes
 }
