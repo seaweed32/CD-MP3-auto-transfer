@@ -161,3 +161,15 @@ table {
 #album {
     margin-top: 1%;
 }
+
+#close_button {
+    display: block;
+    position: fixed;
+    left: 95.5%;
+    top: 41%;
+    width: 1.5%;
+    height: 3%;
+    text-align: center;
+    line-height: 18px;
+    cursor: pointer;
+}

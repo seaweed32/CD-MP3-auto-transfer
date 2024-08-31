@@ -118,6 +118,10 @@ function songDisplay(song){
     embed.setAttribute('src',`https://open.spotify.com/embed/track/${song.spotify_track_uri.split(':')[2]}?utm_source=generator`);
 }
 
+function closeInfoCard(){
+    document.getElementById('info_card').style.display = 'none';
+}
+
 function retrieveData(){
     const request = indexedDB.open("songDataDB", 1);
     //error
