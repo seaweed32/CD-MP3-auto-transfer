@@ -21,6 +21,10 @@ function assembleTable(data){
     const table = document.getElementById('most_streams');
     for(let song of data){
         const row = document.createElement('tr');
+        row.addEventListener('click',function(){songDisplay(song)});
+        row.addEventListener('mouseover',function(){row.style.backgroundColor = 'rgb(242, 242, 242)'});
+        row.addEventListener('mouseout',function(){row.style.backgroundColor = 'transparent'});
+        row.style.cursor = 'pointer';
         //number
         const numRow = document.createElement('td');
         numRow.innerText = data.indexOf(song)+1;
