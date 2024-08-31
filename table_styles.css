@@ -122,3 +122,42 @@ table {
 .result:active {
     background-color: #e7e7e7;
 }
+
+#info_card {
+    display: none;
+    position: fixed;
+    border: 1px solid gray;
+    background-color: rgb(113, 163, 189);
+    border-radius: 6px;
+    font-family: arial, sans-serif;
+    width: 30%;
+    height: 37.5%;
+    left: 67.5%;
+    top: 40%;
+    overflow: hidden;
+}
+
+#track_embed_link {
+    width: 95%;
+    height: 90%;
+    margin-left: 2.5%;
+    margin-top: 2.5%;
+}
+
+.info_p {
+    margin-left: 2.5%;
+    padding-left: 1%;
+    padding-right: 1%;
+    border-radius: 4px;
+    width: fit-content;
+    border-bottom: 3px solid rgb(102, 146, 169);
+    border-left: 3px solid rgb(102, 146, 169);
+}
+
+#stream_amount {
+    margin-top: 2.5%;
+}
+
+#album {
+    margin-top: 1%;
+}

@@ -44,8 +44,8 @@ function assembleTable(data){
 
 function getTime(data){
     let timeMs = 0;
-    for(let song of compData){
-        timeMs += song.ms_played*song.streams;
+    for(let song of uncompData){
+        timeMs += song.ms_played;
     }
     function msToTime(s) {
         var ms = s % 1000;
@@ -93,7 +93,7 @@ function search(){
         let box = document.getElementById('search_results_box');
         box.innerHTML = '';
         for(let song of compData){
-            if(song.title.toLowerCase().includes(searchText) || song.artist.toLowerCase().includes(searchText)){
+            if(song.title.toLowerCase().includes(searchText) || song.artist.toLowerCase().includes(searchText) || song.master_metadata_album_album_name.toLowerCase().includes(searchText)){
                 results.push(song);
             }
         }
@@ -111,7 +111,11 @@ function search(){
 }
 
 function songDisplay(song){
-    console.log(song);
+    document.getElementById('info_card').style.display = 'block';
+    const embed = document.getElementById('track_embed_link');
+    document.getElementById('stream_amount').innerText = 'Streamed '+song.streams+' Times';
+    document.getElementById('album').innerText = 'Album  -  '+song.master_metadata_album_album_name;
+    embed.setAttribute('src',`https://open.spotify.com/embed/track/${song.spotify_track_uri.split(':')[2]}?utm_source=generator`);
 }
 
 function retrieveData(){
