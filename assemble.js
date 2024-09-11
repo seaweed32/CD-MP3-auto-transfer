@@ -19,7 +19,7 @@ searchBox.addEventListener('focus',showSearch);
 
 function assembleTable(data){
     const table = document.getElementById('most_streams');
-    for(let song of data){
+    for(let song of data.slice(0,3000)){
         const row = document.createElement('tr');
         row.addEventListener('click',function(){songDisplay(song)});
         row.addEventListener('mouseover',function(){row.style.backgroundColor = 'rgb(242, 242, 242)'});
